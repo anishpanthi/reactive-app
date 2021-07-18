@@ -8,7 +8,7 @@ spring:
       repositories:
         enabled: true
   r2dbc:
-    url: r2dbcs:mysql://localhost:3306/reactive_apps?locale=en_US
+    url: r2dbc:pool:mysql://localhost:3306/reactive_apps?locale=en_US
     username: root
     password: admin
     pool:
@@ -16,8 +16,6 @@ spring:
       validation-query: SELECT
 
 server:
-  servlet:
-    context-path: /service-b/api
   port: 9091
   http2:
     enabled: true

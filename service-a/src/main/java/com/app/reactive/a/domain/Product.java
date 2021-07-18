@@ -1,4 +1,4 @@
-package com.app.reactive.b.domain;
+package com.app.reactive.a.domain;
 
 import java.io.Serializable;
 import lombok.AllArgsConstructor;

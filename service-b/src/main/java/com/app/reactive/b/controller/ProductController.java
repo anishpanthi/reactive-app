@@ -3,6 +3,7 @@ package com.app.reactive.b.controller;
 import com.app.reactive.b.domain.Product;
 import com.app.reactive.b.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -32,14 +33,16 @@ public class ProductController {
     productService.create(p);
   }
 
+  @SneakyThrows
   @GetMapping(value = "/products/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Mono<Product>> findById(@PathVariable("id") Long id) {
+//    Thread.sleep(5000);
     Mono<Product> productMono = productService.findById(id);
     HttpStatus status = productMono != null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
     return new ResponseEntity<>(productMono, status);
   }
 
-  @GetMapping(value = "/products/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/products/name/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Mono<Product>> findByName(@PathVariable("name") String name) {
     Mono<Product> productMono = productService.findByName(name);
     HttpStatus status = productMono != null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
