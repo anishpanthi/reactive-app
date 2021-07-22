@@ -5,8 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * @author Anish Panthi
@@ -14,20 +13,16 @@ import org.springframework.data.relational.core.mapping.Table;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table
+@Document(collection = "product")
 public class Product implements Serializable {
 
   @Id
-  @Column("ID")
-  private Long id;
+  private String id;
 
-  @Column("NAME")
   private String name;
 
-  @Column("PRICE")
   private Double price;
 
-  @Column("SOURCE")
   private String source;
 
   @Override

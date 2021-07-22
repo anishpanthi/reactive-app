@@ -2,6 +2,8 @@ package com.app.reactive.b.controller;
 
 import com.app.reactive.b.domain.Product;
 import com.app.reactive.b.service.ProductService;
+import java.time.Duration;
+import java.time.LocalTime;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
@@ -35,8 +37,7 @@ public class ProductController {
 
   @SneakyThrows
   @GetMapping(value = "/products/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Mono<Product>> findById(@PathVariable("id") Long id) {
-//    Thread.sleep(5000);
+  public ResponseEntity<Mono<Product>> findById(@PathVariable("id") String id) {
     Mono<Product> productMono = productService.findById(id);
     HttpStatus status = productMono != null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
     return new ResponseEntity<>(productMono, status);
@@ -50,8 +51,8 @@ public class ProductController {
   }
 
   @GetMapping(value = "/products", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-  public ResponseEntity<Flux<Product>> findAll() {
-    return new ResponseEntity<>(productService.findAll(), HttpStatus.OK);
+  public Flux<Product> findAll() {
+    return productService.findAll();
   }
 
   @PutMapping(value = "/products", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -63,5 +64,11 @@ public class ProductController {
   @ResponseStatus(HttpStatus.OK)
   public void delete(@RequestBody Product product) {
     productService.delete(product);
+  }
+
+  @GetMapping(path = "/stream-flux", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+  public Flux<String> streamFlux() {
+    return Flux.interval(Duration.ofSeconds(1))
+        .map(sequence -> "Flux - " + LocalTime.now().toString());
   }
 }

@@ -1,19 +1,19 @@
 spring:
   application:
     name: reactive-service-b
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
   data:
     r2dbc:
       repositories:
         enabled: true
-  r2dbc:
-    url: r2dbc:pool:mysql://localhost:3306/reactive_apps?locale=en_US
-    username: root
-    password: admin
-    pool:
-      max-size: 20
-      validation-query: SELECT
+    mongodb:
+      uri: mongodb://localhost:27017/reactive_app
+#  r2dbc:
+#    url: r2dbc:pool:mysql://localhost:3306/reactive_apps?locale=en_US
+#    username: root
+#    password: admin
+#    pool:
+#      max-size: 20
+#      validation-query: SELECT
 
 server:
   port: 9091

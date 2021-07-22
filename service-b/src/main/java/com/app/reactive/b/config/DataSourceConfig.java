@@ -2,14 +2,14 @@ package com.app.reactive.b.config;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
+import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 
 /**
  * @author Anish Panthi
  */
 @Configuration
 @EntityScan(basePackages = {"com.app.reactive.b.domain"})
-@EnableR2dbcRepositories(basePackages = {"com.app.reactive.b.repository"})
+@EnableReactiveMongoRepositories(basePackages = {"com.app.reactive.b.repository"})
 public class DataSourceConfig {
 
 }

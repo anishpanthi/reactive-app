@@ -3,6 +3,7 @@ package com.app.reactive.b.service.impl;
 import com.app.reactive.b.domain.Product;
 import com.app.reactive.b.repository.ProductRepository;
 import com.app.reactive.b.service.ProductService;
+import java.time.Duration;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -25,13 +26,13 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  public Mono<Product> findById(Long id) {
+  public Mono<Product> findById(String id) {
     return productRepository.findById(id);
   }
 
   @Override
   public Flux<Product> findAll() {
-    return productRepository.findAll();
+    return productRepository.findAll().delayElements(Duration.ofMillis(2000));
   }
 
   @Override
