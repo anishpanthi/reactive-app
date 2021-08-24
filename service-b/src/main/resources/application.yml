@@ -5,15 +5,15 @@ spring:
     r2dbc:
       repositories:
         enabled: true
-    mongodb:
-      uri: mongodb://localhost:27017/reactive_app
-#  r2dbc:
-#    url: r2dbc:pool:mysql://localhost:3306/reactive_apps?locale=en_US
-#    username: root
-#    password: admin
-#    pool:
-#      max-size: 20
-#      validation-query: SELECT
+#    mongodb:
+#      uri: mongodb://localhost:27017/reactive_app
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/reactive_app
+    username: postgres
+    password: postgres
+    pool:
+      max-size: 20
+      validation-query: SELECT
 
 server:
   port: 9091
@@ -29,11 +29,6 @@ management:
   endpoint:
     health:
       show-details: always
-  info:
-    git:
-      mode: simple
-  cloudfoundry:
-    skip-ssl-validation: true
 
 logging:
   level:

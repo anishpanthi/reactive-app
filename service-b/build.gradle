@@ -26,8 +26,10 @@ ext {
 dependencies {
     // Spring Boot and Framework Dependencies
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+    implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'io.r2dbc:r2dbc-postgresql'
+    implementation 'org.postgresql:postgresql'
     implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
 
     // Async Log4j2 Dependencies
@@ -39,10 +41,6 @@ dependencies {
     // Lombok Dependencies
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-
-    // MySQL and Reactive Driver Dependencies
-//    runtimeOnly 'dev.miku:r2dbc-mysql'
-//    runtimeOnly 'mysql:mysql-connector-java'
 
     // Test Dependencies
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

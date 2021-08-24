@@ -2,10 +2,16 @@ package com.app.reactive.b.controller;
 
 import com.app.reactive.b.domain.Product;
 import com.app.reactive.b.service.ProductService;
+import io.r2dbc.postgresql.api.Notification;
+import io.r2dbc.postgresql.api.PostgresqlConnection;
+import io.r2dbc.postgresql.api.PostgresqlResult;
+import io.r2dbc.spi.ConnectionFactory;
 import java.time.Duration;
 import java.time.LocalTime;
-import lombok.RequiredArgsConstructor;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +30,32 @@ import reactor.core.publisher.Mono;
  * @author Anish Panthi
  */
 @RestController
-@RequiredArgsConstructor
 public class ProductController {
 
   private final ProductService productService;
+
+  private final PostgresqlConnection postgresqlConnection;
+
+  public ProductController(ProductService productService,
+      @Qualifier("pgConnectionFactory") ConnectionFactory connectionFactory) {
+    this.productService = productService;
+    this.postgresqlConnection = Mono.from(connectionFactory.create())
+        .cast(PostgresqlConnection.class)
+        .block();
+  }
+
+  @PostConstruct
+  private void postConstruct() {
+    this.postgresqlConnection.createStatement("LISTEN product_added_notification")
+        .execute()
+        .flatMap(PostgresqlResult::getRowsUpdated)
+        .subscribe();
+  }
+
+  @PreDestroy
+  private void preDestroy(){
+    this.postgresqlConnection.close().subscribe();
+  }
 
   @PostMapping(value = "/products", consumes = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
@@ -53,6 +81,12 @@ public class ProductController {
   @GetMapping(value = "/products", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
   public Flux<Product> findAll() {
     return productService.findAll();
+  }
+
+  @GetMapping(value = "/stream-products", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+  public Flux<CharSequence> findAllByStream() {
+    Flux<Notification> notificationFlux = postgresqlConnection.getNotifications();
+    return notificationFlux.map(Notification::getParameter);
   }
 
   @PutMapping(value = "/products", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
