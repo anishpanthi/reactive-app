@@ -25,7 +25,7 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  public Mono<Product> findById(Long id) {
+  public Mono<Product> findById(String id) {
     return productRepository.findById(id);
   }
 

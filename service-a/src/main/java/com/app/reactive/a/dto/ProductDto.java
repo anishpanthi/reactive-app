@@ -1,6 +1,5 @@
 package com.app.reactive.a.dto;
 
-import com.app.reactive.a.domain.Product;
 import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,8 +13,21 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProductDto implements Serializable {
 
-  private Product product1;
+  private String id;
 
-  private Product product2;
+  private String name;
 
+  private Double price;
+
+  private String source;
+
+  @Override
+  public String toString() {
+    return "{\n"
+        + "\t\"id\": \"" + this.id + "\",\n"
+        + "\t\"name\": \"" + this.name + "\",\n"
+        + "\t\"price\": \"" + this.price + "\"\n"
+        + "\t\"source\": \"" + this.source + "\"\n"
+        + "}";
+  }
 }

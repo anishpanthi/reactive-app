@@ -78,7 +78,7 @@ public class ProductController {
     return new ResponseEntity<>(productMono, status);
   }
 
-  @GetMapping(value = "/products", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+  @GetMapping(value = "/products", produces = MediaType.APPLICATION_JSON_VALUE)
   public Flux<Product> findAll() {
     return productService.findAll();
   }
