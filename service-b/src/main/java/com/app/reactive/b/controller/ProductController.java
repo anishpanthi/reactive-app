@@ -66,15 +66,15 @@ public class ProductController {
   @SneakyThrows
   @GetMapping(value = "/products/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Mono<Product>> findById(@PathVariable("id") String id) {
-    Mono<Product> productMono = productService.findById(id);
-    HttpStatus status = productMono != null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
+    var productMono = productService.findById(id);
+    var status = productMono != null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
     return new ResponseEntity<>(productMono, status);
   }
 
   @GetMapping(value = "/products/name/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Mono<Product>> findByName(@PathVariable("name") String name) {
-    Mono<Product> productMono = productService.findByName(name);
-    HttpStatus status = productMono != null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
+    var productMono = productService.findByName(name);
+    var status = productMono != null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
     return new ResponseEntity<>(productMono, status);
   }
 
@@ -85,7 +85,7 @@ public class ProductController {
 
   @GetMapping(value = "/stream-products", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
   public Flux<CharSequence> findAllByStream() {
-    Flux<Notification> notificationFlux = postgresqlConnection.getNotifications();
+    var notificationFlux = postgresqlConnection.getNotifications();
     return notificationFlux.map(Notification::getParameter);
   }
 
