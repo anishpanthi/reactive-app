@@ -9,7 +9,7 @@ import reactor.core.publisher.Mono;
  * @author Anish Panthi
  */
 @Repository
-public interface ProductRepository extends ReactiveCrudRepository<Product, String> {
+public interface ProductRepository extends ReactiveCrudRepository<Product, Long> {
 
   Mono<Product> findByName(String name);
 }

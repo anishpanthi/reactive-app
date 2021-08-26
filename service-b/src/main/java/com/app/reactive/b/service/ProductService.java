@@ -6,7 +6,7 @@ import reactor.core.publisher.Mono;
 /**
  * @author Anish Panthi
  */
-public interface ProductService extends BaseService<Product, String> {
+public interface ProductService extends BaseService<Product, Long> {
 
   Mono<Product> findByName(String name);
 

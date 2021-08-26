@@ -2,6 +2,7 @@ package com.app.reactive.b.domain;
 
 import java.io.Serializable;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -14,10 +15,11 @@ import org.springframework.data.relational.core.mapping.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table("reactive.product")
+@Builder
 public class Product implements Serializable {
 
   @Id
-  private String id;
+  private Long id;
 
   private String name;
 
