@@ -36,10 +36,15 @@ import reactor.core.publisher.Mono;
 @RestController
 public class ProductController {
 
+  private static final BiFunction<Row, RowMetadata, Product> CONVERT_TO_PRODUCT = (row, rowMetaData) -> Product
+      .builder()
+      .id(row.get("id", Long.class))
+      .name(row.get("name", String.class))
+      .price(row.get("price", Double.class))
+      .source(row.get("source", String.class))
+      .build();
   private final ProductService productService;
-
   private final PostgresqlConnection postgresqlConnection;
-
   private final DatabaseClient databaseClient;
 
   public ProductController(ProductService productService,
@@ -121,12 +126,4 @@ public class ProductController {
         .map(CONVERT_TO_PRODUCT)
         .all();
   }
-
-  private static final BiFunction<Row, RowMetadata, Product> CONVERT_TO_PRODUCT = (row, rowMetaData) -> Product
-      .builder()
-      .id(row.get("id", Long.class))
-      .name(row.get("name", String.class))
-      .price(row.get("price", Double.class))
-      .source(row.get("source", String.class))
-      .build();
 }
