@@ -5,8 +5,6 @@ spring:
     r2dbc:
       repositories:
         enabled: true
-#    mongodb:
-#      uri: mongodb://localhost:27017/reactive_app
   r2dbc:
     url: r2dbc:postgresql://localhost:5432/reactive_app
     username: postgres

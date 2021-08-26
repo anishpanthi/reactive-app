@@ -18,10 +18,10 @@ public class ServiceBApplication {
   @Bean
   CommandLineRunner loader(ProductRepository productRepository) {
     return args -> {
-      Flux<Product> productFlux = Flux.just(new Product(null, "Pixel", 100.0, "loader"),
-          new Product(null, "Pixel 2", 200.0, "loader"),
-          new Product(null, "Pixel 3", 300.0, "loader"),
-          new Product(null, "Pixel 4", 400.0, "loader"));
+      var productFlux = Flux.just(new Product(null, "Pixel", 100.0, "loader-b"),
+          new Product(null, "Pixel 2", 200.0, "loader-b"),
+          new Product(null, "Pixel 3", 300.0, "loader-b"),
+          new Product(null, "Pixel 4", 400.0, "loader-b"));
       productRepository.deleteAll().subscribe(null, null,
           () -> productRepository.saveAll(productFlux).subscribe(System.out::println));
     };
