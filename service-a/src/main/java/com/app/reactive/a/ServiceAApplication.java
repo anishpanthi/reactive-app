@@ -45,7 +45,8 @@ public class ServiceAApplication {
         .maxDocuments(20)
     );
 
-    var productFlux = Flux.just(new Product(null, "Lenovo", 500.0, "loader-a"),
+    var productFlux = Flux.just(
+        new Product(null, "Lenovo", 500.0, "loader-a"),
         new Product(null, "Mac", 2200.0, "loader-a"),
         new Product(null, "Dell", 300.0, "loader-a"),
         new Product(null, "HP", 400.0, "loader-a"));

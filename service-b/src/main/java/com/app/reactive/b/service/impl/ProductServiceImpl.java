@@ -32,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
 
   @Override
   public Flux<Product> findAll() {
-    return productRepository.findAll().delayElements(Duration.ofMillis(1000));
+    return productRepository.findAll();
   }
 
   @Override
