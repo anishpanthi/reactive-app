@@ -1,12 +1,12 @@
 spring:
   application:
-    name: reactive-service-b
+    name: service-b
   data:
     r2dbc:
       repositories:
         enabled: true
   r2dbc:
-    url: r2dbc:postgresql://localhost:5432/reactive_app
+    url: r2dbc:postgresql://localhost:5432/postgres
     username: postgres
     password: postgres
     pool:

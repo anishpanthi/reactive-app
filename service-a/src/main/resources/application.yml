@@ -1,12 +1,14 @@
 spring:
   application:
-    name: reactive-service-a
+    name: service-a
   data:
     r2dbc:
       repositories:
         enabled: true
     mongodb:
-      uri: mongodb://localhost:27017/reactive_app
+      uri: mongodb://localhost:27017/mongo_product
+      username: mongo
+      password: mongo
 
 server:
   port: 9092
